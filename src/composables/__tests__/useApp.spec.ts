@@ -1,4 +1,3 @@
-import { nextTick } from 'vue';
 import useApp from '@/composables/useApp';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
@@ -19,9 +18,10 @@ describe('useApp', () => {
 
   it('should load saved styles from localStorage', async() => {
     localStorage.setItem('themeStyles', JSON.stringify({ backgroundColor: '#000000' }));
-    const { currentStyles, _test } = useApp();
+    const { currentStyles, loadSavedStyles } = useApp();  // _test
 
-    _test.loadSavedStyles();
+    //a_test.loadSavedStyles();
+    loadSavedStyles();
     expect(currentStyles.value.backgroundColor).toBe('#000000');
   });
 

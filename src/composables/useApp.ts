@@ -1,8 +1,6 @@
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import type { Ref } from 'vue';
 import type { Styles } from '@/types/styles'
-import type { TestAPI } from '@/types/testApi'
-
 
 const useApp =  function () {
   const defaultStyles: Styles = {
@@ -16,6 +14,12 @@ const useApp =  function () {
 
   const currentStyles:Ref<Styles> = ref({...defaultStyles});
 
+  const handleStyleUpdate = (newStyles: Partial<Styles>) => {
+    currentStyles.value = {...currentStyles.value, ...newStyles};
+  
+    localStorage.setItem('themeStyles', JSON.stringify(newStyles));
+  };
+
   const loadSavedStyles = () => {
     const savedStyles = localStorage.getItem('themeStyles');
     if (savedStyles) {
@@ -23,19 +27,11 @@ const useApp =  function () {
     }
   };
 
-  onMounted(loadSavedStyles);
-
-  const handleStyleUpdate = (newStyles: Partial<Styles>) => {
-    currentStyles.value = {...currentStyles.value, ...newStyles};
-  
-    localStorage.setItem('themeStyles', JSON.stringify(newStyles));
-  };
-
   return {
     currentStyles,
 
     handleStyleUpdate,
-    _test: { loadSavedStyles } as TestAPI
+    loadSavedStyles
   }
 };
 
