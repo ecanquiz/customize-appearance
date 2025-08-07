@@ -1,0 +1,77 @@
+.preview-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.preview-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.preview-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+}
+
+.preview-header nav {
+  display: flex;
+  gap: 20px;
+}
+
+.preview-header nav a {
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.preview-content {
+  flex: 1;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+
+.preview-content article {
+  flex: 3;
+}
+
+.preview-content aside {
+  flex: 1;
+  padding: 15px;
+  border-left: 1px solid #ddd;
+}
+
+.preview-footer {
+  padding: 15px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.primary-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .preview-content {
+    flex-direction: column;
+  }
+  
+  .preview-content aside {
+    border-left: none;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+  }
+}
