@@ -7,10 +7,15 @@ export function isHexColor(value: string): value is HexColor {
 export function getContrastColor (hexColor: HexColor): HexColor {
   if (!isHexColor(hexColor)) return '#ffffff';
 
+  // Expand short format (#abc) to long format (#aabbcc)
+  const fullHex = hexColor.length === 4 
+    ? `#${hexColor[1]}${hexColor[1]}${hexColor[2]}${hexColor[2]}${hexColor[3]}${hexColor[3]}`
+    : hexColor;
+
   // Convert to RGB
-  const r = parseInt(hexColor.substring(1, 2), 16);
-  const g = parseInt(hexColor.substring(3, 2), 16);
-  const b = parseInt(hexColor.substring(5, 2), 16);
+  const r = parseInt(fullHex.substring(1, 3), 16);
+  const g = parseInt(fullHex.substring(3, 5), 16);
+  const b = parseInt(fullHex.substring(5, 7), 16);
       
  // Calculate luminosity
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;

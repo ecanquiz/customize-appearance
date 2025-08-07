@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -15,4 +16,28 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+    build: {
+    rollupOptions: {
+      external: [
+        /\/__tests__\//,
+        /\/__mocks__\//,
+        /\.spec\.ts$/,
+        /\.test\.ts$/
+      ]
+    }
+  },
+  test: {
+    include: ['**/__tests__/**/*.spec.ts'],
+    exclude: ['node_modules', 'dist'],
+    globals: true,
+    environment: 'jsdom',
+    coverage: {
+      exclude: [
+        '**/__mocks__/**',
+        '**/__tests__/**',
+        '**/*.d.ts'
+      ],
+      reporter: ['text', 'json', 'html']
+    }
+  }
 })

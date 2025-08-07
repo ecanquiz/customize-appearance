@@ -1,9 +1,10 @@
 import { ref, onMounted } from 'vue';
 import type { Ref } from 'vue';
 import type { Styles } from '@/types/styles'
+import type { TestAPI } from '@/types/testApi'
+
 
 const useApp =  function () {
-
   const defaultStyles: Styles = {
     backgroundColor: '#ffffff',
     textColor: '#333333',
@@ -15,14 +16,16 @@ const useApp =  function () {
 
   const currentStyles:Ref<Styles> = ref({...defaultStyles});
 
-  onMounted(() => {
+  const loadSavedStyles = () => {
     const savedStyles = localStorage.getItem('themeStyles');
     if (savedStyles) {
       currentStyles.value = {...defaultStyles, ...JSON.parse(savedStyles)};
     }
-  });
+  };
 
-  const handleStyleUpdate = (newStyles: Styles) => {
+  onMounted(loadSavedStyles);
+
+  const handleStyleUpdate = (newStyles: Partial<Styles>) => {
     currentStyles.value = {...currentStyles.value, ...newStyles};
   
     localStorage.setItem('themeStyles', JSON.stringify(newStyles));
@@ -31,7 +34,8 @@ const useApp =  function () {
   return {
     currentStyles,
 
-    handleStyleUpdate
+    handleStyleUpdate,
+    _test: { loadSavedStyles } as TestAPI
   }
 };
 
