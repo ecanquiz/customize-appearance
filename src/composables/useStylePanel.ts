@@ -1,5 +1,4 @@
 import { ref, watch } from 'vue';
-
 import type { Styles, StylePanelProps, StylePanelEmits  } from '@/types/styles';
 
 const useStylePanel =  function(props: StylePanelProps, emits: StylePanelEmits) {

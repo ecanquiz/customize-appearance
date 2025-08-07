@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import StylePanel from './components/StylePanel.vue';
 import PreviewLayout from './components/PreviewLayout.vue';
 import useApp from './composables/useApp';
@@ -6,8 +7,11 @@ import useApp from './composables/useApp';
 const {
   currentStyles,
 
-  handleStyleUpdate
+  handleStyleUpdate,
+  loadSavedStyles
 } = useApp();
+
+onMounted(loadSavedStyles);
 </script>
 
 <template>
