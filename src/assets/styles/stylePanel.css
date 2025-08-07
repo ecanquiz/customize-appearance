@@ -24,7 +24,7 @@
 }
 
 .form-group input[type="text"] {
-  width: calc(100% - 70px);
+  width: calc(90% - 70px);
   padding: 5px;
   border: 1px solid #ddd;
   border-radius: 4px;
