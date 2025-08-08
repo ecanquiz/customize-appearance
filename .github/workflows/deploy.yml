@@ -2,11 +2,29 @@ name: Deploy to GitHub Pages
 
 on:
   push:
+    branches: [develop]
+  pull_request:
+    types: [closed]
     branches: [main]
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+  
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test:ci
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     permissions:
       contents: write
       pages: write
@@ -28,8 +46,8 @@ jobs:
       - name: Type checking
         run: npm run type-check
 
-      - name: Build project
-        run: npm run build
+      - name: Build only project
+        run: npm run build-only
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
