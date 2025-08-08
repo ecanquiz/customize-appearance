@@ -7,6 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/customize-appearance/' : '/',
   plugins: [
     vue(),
     vueDevTools(),
@@ -16,7 +17,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-    build: {
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
     rollupOptions: {
       external: [
         /\/__tests__\//,
